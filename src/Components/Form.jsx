@@ -3,6 +3,7 @@ import axios from "axios";
 import { Form, Field, withFormik} from "formik";
 import * as Yup from "yup";
 
+
 const UserForm = ({errors, touched, values, status}) =>{
     const [users, setUsers] = useState([]);
     console.log("this is touched", touched);
@@ -17,9 +18,9 @@ const UserForm = ({errors, touched, values, status}) =>{
                 <label>
                 Name
                 <Field name="user" type="text" placeholder="User Name"/>
-                {touched.user && errors.user && (
-                    <p>{errors.user}</p>
-                )}
+                {touched.user && errors.user && 
+                    <p className="error" >{errors.user}</p>
+                }
                 </label>
                 <label>
                     Email
@@ -28,9 +29,9 @@ const UserForm = ({errors, touched, values, status}) =>{
                 <label>
                     Password
                     <Field name="password" type="password" placeholder="password"/>
-                    {touched.password && errors.password && (
-                    <p>{errors.password}</p>
-                )}
+                    {touched.password && errors.password && 
+                    <p className="error">{errors.password}</p>
+                }
                 </label>
                 
                 <label className="checkmark-container">
@@ -63,9 +64,14 @@ const FormikUserForm = withFormik({
             terms: terms || false
         };
     },
-    validateSchema: Yup.object().shape({
-        user: Yup.string().required("required"),
-        password: Yup.string().required("required")
+    validationSchema: Yup.object().shape({
+        user: Yup
+        .string()
+        .required("required"),
+        password: Yup
+        .string()
+        .required("required")
+        .min(8, "needs to be 8 chars")
     }),
 
     handleSubmit(values, { setStatus }) {
