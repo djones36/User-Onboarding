@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import UserForm from "./Components/Form";
-import data from './data';
+
 
 function App() {
   return (
