@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
 import axios from "axios";
 import { Form, Field, withFormik} from "formik";
 import * as Yup from "yup";
 
-const UserForm = ({errors, touched, values}) =>{
+const UserForm = ({errors, touched, values, status}) =>{
+    const [users, setUsers] = useState([]);
+    console.log("this is touched", touched);
+    useEffect(() =>{
+        if (status){
+            setUsers([...users, status]);
+        }
+     }, [status])
     return(
         <div className="form-parent">
             <Form>
@@ -37,6 +44,13 @@ const UserForm = ({errors, touched, values}) =>{
                 </label>
                 <button>Submit!</button>
             </Form>
+            {users.map(user => (
+                <ul key={user.id}>
+                    <li>User Name: {user.user}</li>
+                    <li>Email: {user.email}</li>
+                    <li>Password: {user.password}</li>
+                </ul>
+            ))}
         </div>
     );
 }
