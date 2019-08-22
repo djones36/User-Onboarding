@@ -3,7 +3,7 @@ import React from 'react';
 import { Form, Field, withFormik} from "formik";
 // import * as Yup from "yup";
 
-const UserForm = () =>{
+const UserForm = ({values}) =>{
     return(
         <div className="form-parent">
             <Form>
@@ -24,5 +24,15 @@ const UserForm = () =>{
         </div>
     )
 }
+const FormikUserForm = withFormik({
+    mapPropsToValues({ name, email, password, terms}){
+        return{
+            name: name || "",
+            email: email || "",
+            password: password || "",
+            terms: terms || false
+        }
+    }
+})(UserForm);
 
 export default UserForm;
