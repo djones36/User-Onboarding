@@ -25,7 +25,7 @@ const UserForm = ({errors, touched, values}) =>{
                     <Field
                         type="checkbox"
                         name="terms"
-                        checked={values.terms}
+                        // checked={values.terms}
                     />
                     <span className="checkmark"/>
                 </label>
@@ -55,9 +55,10 @@ const FormikUserForm = withFormik({
           .post("<https://reqres.in/api/users/>", values)
           .then(res => {
             setStatus(res.data);
+            console.log(values);
           })
           .catch(err => console.log(err.response));
       }
 })(UserForm);
 
-export default UserForm;
+export default FormikUserForm;
