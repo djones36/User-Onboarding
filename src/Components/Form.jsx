@@ -1,9 +1,9 @@
 import React from 'react';
-// import axios from "axios";
+import axios from "axios";
 import { Form, Field, withFormik, Formik, yupToFormErrors} from "formik";
-// import * as Yup from "yup";
+import * as Yup from "yup";
 
-const UserForm = ({values}) =>{
+const UserForm = ({errors, touched, values}) =>{
     return(
         <div className="form-parent">
             <Formik>
@@ -25,7 +25,7 @@ const UserForm = ({values}) =>{
                     <Field
                         type="checkbox"
                         name="terms"
-                        // checked={values.terms}
+                        checked={values.terms}
                     />
                     <span className="checkmark"/>
                 </label>
@@ -44,15 +44,20 @@ const FormikUserForm = withFormik({
             terms: terms || false
         };
     },
-    validateSchema: yupToFormErrors.object().shape({
-        name: Yup.toString().required(),
-        email: Yup.toString().required(),
-        password: Yup.toString().required(),
+    validateSchema: Yup.object().shape({
+        name: Yup.string().required(),
+        email: Yup.string().required(),
+        password: Yup.string().required(),
     }),
 
-    handleSubmit(values){
-        console.log(values);
-    }//Form submit code goes here
+    handleSubmit(values, { setStatus }) {
+        axios
+          .post("<https://reqres.in/api/users/>", values)
+          .then(res => {
+            setStatus(res.data);
+          })
+          .catch(err => console.log(err.response));
+      }
 })(UserForm);
 
 export default UserForm;
