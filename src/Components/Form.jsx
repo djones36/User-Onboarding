@@ -22,7 +22,7 @@ const UserForm = ({values}) =>{
                 <button>Submit!</button>
             </Form>
         </div>
-    )
+    );
 }
 const FormikUserForm = withFormik({
     mapPropsToValues({ name, email, password, terms}){
@@ -31,8 +31,12 @@ const FormikUserForm = withFormik({
             email: email || "",
             password: password || "",
             terms: terms || false
-        }
-    }
+        };
+    },
+
+    handleSubmit(values){
+        console.log(values);
+    }//Form submit code goes here
 })(UserForm);
 
 export default UserForm;
