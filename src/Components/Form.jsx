@@ -1,13 +1,14 @@
 import React from 'react';
 // import axios from "axios";
-import { Form, Field, withFormik} from "formik";
+import { Form, Field, withFormik, Formik} from "formik";
 // import * as Yup from "yup";
 
 const UserForm = ({values}) =>{
     return(
         <div className="form-parent">
+            <Formik>
             <Form>
-                <Field name="name" type="text" placeholder="Name"/>
+                <Field name="user" type="text" placeholder="User Name"/>
                 <Field name="email" type="email" placeholder="email@email.com"/>
                 <Field name="password" type="password" placeholder="password"/>
                 <label className="checkmark-container">
@@ -15,19 +16,20 @@ const UserForm = ({values}) =>{
                     <Field
                         type="checkbox"
                         name="terms"
-                        checked={values.terms}
+                        // checked={values.terms}
                     />
                     <span className="checkmark"/>
                 </label>
                 <button>Submit!</button>
             </Form>
+            </Formik>
         </div>
     );
 }
 const FormikUserForm = withFormik({
-    mapPropsToValues({ name, email, password, terms}){
+    mapPropsToValues({ user, email, password, terms}){
         return{
-            name: name || "",
+            name: user || "",
             email: email || "",
             password: password || "",
             terms: terms || false
